@@ -46,6 +46,20 @@ ST-PR-01/
    pip install -r requirements.txt
    ```
 
+## One-Command Workflow
+
+Use the shell helper for the simplest flow:
+
+```bash
+./run_trading_bot.sh setup
+./run_trading_bot.sh send --bot-token "YOUR_BOT_TOKEN" --chat-id "YOUR_CHAT_ID"
+```
+
+What it does:
+
+- `setup`: creates `.venv`, installs all requirements, fetches data, and trains all active stocks from `stocks.txt`
+- `send`: loads the trained models, generates predictions, and sends the Telegram alert
+
 ## Step 1: Download Historical Data
 
 Example:
