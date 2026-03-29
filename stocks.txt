@@ -1,54 +1,85 @@
 # Add one ticker per line.
 # Use yfinance-compatible ticker symbols.
-# For NSE stocks, use the .NS suffix.
+# For NSE stocks, use the .NS suffix. For BSE-only stocks, use the .BO suffix.
 
-RELIANCE.NS    # Reliance Industries Ltd
-HDFCBANK.NS    # HDFC Bank Ltd
-BHARTIARTL.NS  # Bharti Airtel Ltd
-SBIN.NS        # State Bank of India
-ICICIBANK.NS   # ICICI Bank Ltd
-TCS.NS         # Tata Consultancy Services Ltd
-INFY.NS        # Infosys Ltd
-BAJFINANCE.NS  # Bajaj Finance Ltd
-HINDUNILVR.NS  # Hindustan Unilever Ltd
-LT.NS          # Larsen and Toubro Ltd
-SUNPHARMA.NS   # Sun Pharmaceutical Industries Ltd
-MARUTI.NS      # Maruti Suzuki India Ltd
-HCLTECH.NS     # HCL Technologies Ltd
-ITC.NS         # ITC Ltd
-AXISBANK.NS    # Axis Bank Ltd
-NTPC.NS        # NTPC Ltd
-M&M.NS         # Mahindra and Mahindra Ltd
-KOTAKBANK.NS   # Kotak Mahindra Bank Ltd
-TITAN.NS       # Titan Company Ltd
-ONGC.NS        # Oil and Natural Gas Corporation Ltd
-ULTRACEMCO.NS  # UltraTech Cement Ltd
-ADANIPORTS.NS  # Adani Ports and Special Economic Zone Ltd
-BEL.NS         # Bharat Electronics Ltd
-POWERGRID.NS   # Power Grid Corporation of India Ltd
-COALINDIA.NS   # Coal India Ltd
-JSWSTEEL.NS    # JSW Steel Ltd
-BAJAJFINSV.NS  # Bajaj Finserv Ltd
-BAJAJ-AUTO.NS  # Bajaj Auto Ltd
-ADANIENT.NS    # Adani Enterprises Ltd
-TATASTEEL.NS   # Tata Steel Ltd
-NESTLEIND.NS   # Nestle India Ltd
-ETERNAL.NS     # Eternal Ltd
-ASIANPAINT.NS  # Asian Paints Ltd
-WIPRO.NS       # Wipro Ltd
-HINDALCO.NS    # Hindalco Industries Ltd
-SBILIFE.NS     # SBI Life Insurance Company Ltd
-EICHERMOT.NS   # Eicher Motors Ltd
-GRASIM.NS      # Grasim Industries Ltd
-SHRIRAMFIN.NS  # Shriram Finance Ltd
-INDIGO.NS      # Interglobe Aviation Ltd
-JIOFIN.NS      # Jio Financial Services Ltd
-TECHM.NS       # Tech Mahindra Ltd
-HDFCLIFE.NS    # HDFC Life Insurance Company Ltd
-TRENT.NS       # Trent Ltd
-TMPV.NS        # Tata Motors Passenger Vehicles Ltd
-DRREDDY.NS     # Dr Reddy's Laboratories Ltd
-APOLLOHOSP.NS  # Apollo Hospitals Enterprise Ltd
-TATACONSUM.NS  # Tata Consumer Products Ltd
-CIPLA.NS       # Cipla Ltd
-MAXHEALTH.NS   # Max Healthcare Institute Ltd
+SBIN.NS         # State Bank of India
+ITC.NS          # ITC
+WIPRO.NS        # Wipro
+TATASTEEL.NS    # Tata Steel
+POWERGRID.NS    # Power Grid Corporation
+NTPC.NS         # NTPC
+COALINDIA.NS    # Coal India
+IOC.NS          # Indian Oil Corporation
+HINDALCO.NS     # Hindalco Industries
+VEDL.NS         # Vedanta
+GAIL.NS         # GAIL India
+LICI.NS         # LIC
+ADANIPOWER.NS   # Adani Power
+AWL.NS          # Adani Wilmar
+BANKBARODA.NS   # Bank of Baroda
+JSL.NS          # Jindal Stainless
+APOLLOTYRE.NS   # Apollo Tyres
+FEDERALBNK.NS   # Federal Bank
+CANBK.NS        # Canara Bank
+NMDC.NS         # NMDC
+INDHOTEL.NS     # Indian Hotels Company
+PVRINOX.NS      # PVR INOX
+NATIONALUM.NS   # NALCO
+DEEPAKFERT.NS   # Deepak Fertilisers
+GNFC.NS         # Gujarat Narmada Fertilizers
+HINDZINC.NS     # Hindustan Zinc
+IEX.NS          # Indian Energy Exchange
+CASTROLIND.NS   # Castrol India
+ZEEL.NS         # Zee Entertainment
+TATACHEM.NS     # Tata Chemicals
+RECLTD.NS       # REC Limited
+PFC.NS          # Power Finance Corporation
+IRFC.NS         # IRFC
+OIL.NS          # Oil India
+ENGINERSIN.NS   # Engineers India
+NBCC.NS         # NBCC
+SJVN.NS         # SJVN
+BDL.NS          # Bharat Dynamics
+HINDCOPPER.NS   # Hindustan Copper
+CHENNPETRO.NS   # Chennai Petroleum
+TATAPOWER.NS    # Tata Power
+SUZLON.NS       # Suzlon Energy
+IRB.NS          # IRB Infrastructure
+UPL.NS          # UPL
+BERGEPAINT.NS   # Berger Paints
+LAURUSLABS.NS   # Laurus Labs
+AETHER.NS       # Aether Industries
+TIPSINDLTD.NS   # Tips Industries
+WAAREERTL.NS    # Waaree Renewables
+530929.BO       # R R P Defence
+HDFCBANK.NS     # HDFC Bank
+BAJFINANCE.NS   # Bajaj Finance
+INDUSINDBK.NS   # IndusInd Bank
+AUBANK.NS       # AU Small Finance Bank
+ZYDUSLIFE.NS    # Zydus Lifesciences
+NAUKRI.NS       # Info Edge (Naukri)
+FORTIS.NS       # Fortis Healthcare
+INDIANB.NS      # Indian Bank
+ADANIENSOL.NS   # Adani Energy Solutions
+DLF.NS          # DLF
+TRITURBINE.NS   # Triveni Turbine
+ANANTRAJ.NS     # Anant Raj
+KEC.NS          # KEC International
+AARTIIND.NS     # Aarti Industries
+KAJARIACER.NS   # Kajaria Ceramics
+MOLDTKPAC.NS    # Mold-Tek Packaging
+SUPRAJIT.NS     # Suprajit Engineering
+CROMPTON.NS     # Crompton Greaves Consumer
+BLUESTARCO.NS   # Blue Star
+VOLTAS.NS       # Voltas
+PREMIERENE.NS   # Premier Energies
+SHAKTIPUMP.NS   # Shakti Pumps
+SWELECTES.NS    # Swelect Energy Systems
+GMDCLTD.NS      # Gujarat Mineral Development Corp
+KEI.NS          # KEI Industries
+ARE&M.NS        # Amara Raja Energy
+EXIDEIND.NS     # Exide Industries
+ORCHPHARMA.NS   # Orchid Pharma
+NEULANDLAB.NS   # Neuland Labs
+IRCON.NS        # IRCON International
+RVNL.NS         # Rail Vikas Nigam (RVNL)

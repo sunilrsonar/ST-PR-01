@@ -11,6 +11,14 @@ TELEGRAM_API_BASE = "https://api.telegram.org"
 TELEGRAM_MESSAGE_LIMIT = 3800
 
 
+def _signal_emoji(signal: str) -> str:
+    if signal == "BUY":
+        return "UP"
+    if signal == "SELL":
+        return "DOWN"
+    return "SIDE"
+
+
 def resolve_telegram_credentials(
     bot_token: str | None = None,
     chat_id: str | None = None,
@@ -85,10 +93,9 @@ def build_signal_message(prediction_payload: dict) -> str:
     return "\n".join(
         [
             "AI Swing Trading Signal",
-            f"Ticker: {prediction_payload['ticker']}",
-            f"Date: {prediction_payload['signal_date']}",
-            f"Close: {prediction_payload['latest_close']:.2f}",
-            f"Signal: {prediction_payload['predicted_signal']}",
+            f"{prediction_payload['ticker']} | {_signal_emoji(prediction_payload['predicted_signal'])} {prediction_payload['predicted_signal']}",
+            f"Date: {prediction_payload['signal_date']} | Close: {prediction_payload['latest_close']:.2f}",
+            f"Confidence: {prediction_payload['confidence_band']} ({prediction_payload['confidence']:.2%})",
             (
                 f"Expected {prediction_payload['horizon_days']}-day move: "
                 f"{prediction_payload['predicted_price_change']:+.2f} "
@@ -119,6 +126,7 @@ def build_multi_signal_message(prediction_payloads: list[dict]) -> str:
                     f"{payload['ticker']} | {payload['predicted_signal']} | "
                     f"Close {payload['latest_close']:.2f} | Date {payload['signal_date']}"
                 ),
+                f"Confidence: {payload['confidence_band']} ({payload['confidence']:.2%})",
                 (
                     f"Expected {payload['horizon_days']}-day move: "
                     f"{payload['predicted_price_change']:+.2f} "

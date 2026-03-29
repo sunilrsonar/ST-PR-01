@@ -52,13 +52,13 @@ Use the shell helper for the simplest flow:
 
 ```bash
 ./run_trading_bot.sh setup
-./run_trading_bot.sh send --bot-token "YOUR_BOT_TOKEN" --chat-id "YOUR_CHAT_ID"
+./run_trading_bot.sh send --bot-token "YOUR_BOT_TOKEN" --chat-id "YOUR_CHAT_ID" --min-confidence 0.45
 ```
 
 What it does:
 
 - `setup`: creates `.venv`, installs all requirements, fetches data, and trains all active stocks from `stocks.txt`
-- `send`: loads the trained models, generates predictions, and sends the Telegram alert
+- `send`: loads the trained models, filters weaker predictions if needed, and sends the Telegram alert
 
 ## Step 1: Download Historical Data
 
@@ -132,6 +132,7 @@ This script will:
 - Fetch the latest market data
 - Generate the newest `BUY`, `SELL`, or `HOLD` signal
 - Estimate the expected future return and price change over the horizon
+- Optionally filter out low-confidence signals
 - Print the signal locally
 - Send the same signals to your Telegram chat in one message
 

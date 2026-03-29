@@ -12,6 +12,15 @@ from ai_swing_trader.features import add_technical_features, finalize_feature_da
 from ai_swing_trader.model import load_model_artifact
 
 
+def confidence_band(confidence: float) -> str:
+    """Convert a numeric confidence score into a simple label."""
+    if confidence >= 0.55:
+        return "High"
+    if confidence >= 0.40:
+        return "Medium"
+    return "Low"
+
+
 def predict_latest_signal(ticker: str, period: str) -> dict[str, Any]:
     """Load the trained model and predict the latest BUY/SELL/HOLD signal."""
     artifact_path = model_artifact_path_for_ticker(ticker)
@@ -43,6 +52,7 @@ def predict_latest_signal(ticker: str, period: str) -> dict[str, Any]:
         TARGET_TO_SIGNAL[int(label)]: round(float(probability), 4)
         for label, probability in zip(classifier.classes_, probabilities)
     }
+    confidence = float(max(probabilities))
     predicted_future_return = float(regressor.predict(x_latest)[0])
     latest_close = float(latest_row["Close"].iloc[0])
     predicted_price_change = latest_close * predicted_future_return
@@ -55,6 +65,8 @@ def predict_latest_signal(ticker: str, period: str) -> dict[str, Any]:
         "predicted_signal": TARGET_TO_SIGNAL[prediction],
         "prediction_code": prediction,
         "probabilities": probability_map,
+        "confidence": confidence,
+        "confidence_band": confidence_band(confidence),
         "predicted_future_return": predicted_future_return,
         "predicted_price_change": predicted_price_change,
         "predicted_future_close": predicted_future_close,

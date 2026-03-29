@@ -67,6 +67,12 @@ def parse_args() -> argparse.Namespace:
         help="Path to a file containing one or more ticker symbols. Defaults to stocks.txt.",
     )
     parser.add_argument("--period", default=DEFAULT_LOOKBACK_PERIOD, help="Recent history window for prediction, for example 2y.")
+    parser.add_argument(
+        "--min-confidence",
+        type=float,
+        default=0.0,
+        help="Only keep predictions whose top class probability is at least this value, for example 0.45.",
+    )
     parser.add_argument("--send-telegram", action="store_true", help="Send the latest prediction to Telegram.")
     parser.add_argument("--bot-token", default=None, help="Telegram bot token. Defaults to TELEGRAM_BOT_TOKEN.")
     parser.add_argument("--chat-id", default=None, help="Telegram chat ID. Defaults to TELEGRAM_CHAT_ID.")
@@ -93,20 +99,29 @@ def main() -> None:
     tickers = _normalize_tickers(raw_tickers)
     prediction_payloads = []
     skipped: list[tuple[str, str]] = []
+    filtered_out: list[tuple[str, float]] = []
     for ticker in tickers:
         try:
-            prediction_payloads.append(predict_latest_signal(ticker=ticker, period=args.period))
+            payload = predict_latest_signal(ticker=ticker, period=args.period)
+            if payload["confidence"] < args.min_confidence:
+                filtered_out.append((ticker, payload["confidence"]))
+                continue
+            prediction_payloads.append(payload)
         except Exception as exc:
             skipped.append((ticker, str(exc)))
 
     if not prediction_payloads:
-        raise RuntimeError("No predictions could be generated for the provided tickers.")
+        raise RuntimeError("No predictions could be generated after filtering the provided tickers.")
 
     for prediction_payload in prediction_payloads:
         print(f"Ticker: {prediction_payload['ticker']}")
         print(f"Signal date: {prediction_payload['signal_date']}")
         print(f"Latest close: {prediction_payload['latest_close']:.2f}")
         print(f"Predicted signal: {prediction_payload['predicted_signal']}")
+        print(
+            f"Confidence: {prediction_payload['confidence_band']} "
+            f"({prediction_payload['confidence']:.2%})"
+        )
         print(
             "Expected move over "
             f"{prediction_payload['horizon_days']} days: "
@@ -115,6 +130,12 @@ def main() -> None:
         )
         print(f"Expected future close: {prediction_payload['predicted_future_close']:.2f}")
         print(f"Class probabilities: {prediction_payload['probabilities']}")
+        print()
+
+    if filtered_out:
+        print("Filtered out by confidence:")
+        for ticker, confidence in filtered_out:
+            print(f"- {ticker}: {confidence:.2%} < {args.min_confidence:.2%}")
         print()
 
     if skipped:
