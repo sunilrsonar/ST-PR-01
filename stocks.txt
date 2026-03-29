@@ -1,0 +1,54 @@
+# Add one ticker per line.
+# Use yfinance-compatible ticker symbols.
+# For NSE stocks, use the .NS suffix.
+
+RELIANCE.NS    # Reliance Industries Ltd
+HDFCBANK.NS    # HDFC Bank Ltd
+BHARTIARTL.NS  # Bharti Airtel Ltd
+SBIN.NS        # State Bank of India
+ICICIBANK.NS   # ICICI Bank Ltd
+TCS.NS         # Tata Consultancy Services Ltd
+INFY.NS        # Infosys Ltd
+BAJFINANCE.NS  # Bajaj Finance Ltd
+HINDUNILVR.NS  # Hindustan Unilever Ltd
+LT.NS          # Larsen and Toubro Ltd
+SUNPHARMA.NS   # Sun Pharmaceutical Industries Ltd
+MARUTI.NS      # Maruti Suzuki India Ltd
+HCLTECH.NS     # HCL Technologies Ltd
+ITC.NS         # ITC Ltd
+AXISBANK.NS    # Axis Bank Ltd
+NTPC.NS        # NTPC Ltd
+M&M.NS         # Mahindra and Mahindra Ltd
+KOTAKBANK.NS   # Kotak Mahindra Bank Ltd
+TITAN.NS       # Titan Company Ltd
+ONGC.NS        # Oil and Natural Gas Corporation Ltd
+ULTRACEMCO.NS  # UltraTech Cement Ltd
+ADANIPORTS.NS  # Adani Ports and Special Economic Zone Ltd
+BEL.NS         # Bharat Electronics Ltd
+POWERGRID.NS   # Power Grid Corporation of India Ltd
+COALINDIA.NS   # Coal India Ltd
+JSWSTEEL.NS    # JSW Steel Ltd
+BAJAJFINSV.NS  # Bajaj Finserv Ltd
+BAJAJ-AUTO.NS  # Bajaj Auto Ltd
+ADANIENT.NS    # Adani Enterprises Ltd
+TATASTEEL.NS   # Tata Steel Ltd
+NESTLEIND.NS   # Nestle India Ltd
+ETERNAL.NS     # Eternal Ltd
+ASIANPAINT.NS  # Asian Paints Ltd
+WIPRO.NS       # Wipro Ltd
+HINDALCO.NS    # Hindalco Industries Ltd
+SBILIFE.NS     # SBI Life Insurance Company Ltd
+EICHERMOT.NS   # Eicher Motors Ltd
+GRASIM.NS      # Grasim Industries Ltd
+SHRIRAMFIN.NS  # Shriram Finance Ltd
+INDIGO.NS      # Interglobe Aviation Ltd
+JIOFIN.NS      # Jio Financial Services Ltd
+TECHM.NS       # Tech Mahindra Ltd
+HDFCLIFE.NS    # HDFC Life Insurance Company Ltd
+TRENT.NS       # Trent Ltd
+TMPV.NS        # Tata Motors Passenger Vehicles Ltd
+DRREDDY.NS     # Dr Reddy's Laboratories Ltd
+APOLLOHOSP.NS  # Apollo Hospitals Enterprise Ltd
+TATACONSUM.NS  # Tata Consumer Products Ltd
+CIPLA.NS       # Cipla Ltd
+MAXHEALTH.NS   # Max Healthcare Institute Ltd

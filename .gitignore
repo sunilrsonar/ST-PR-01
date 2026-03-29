@@ -1,0 +1,12 @@
+.venv/
+.codex
+.codex/
+.env
+__pycache__/
+*.pyc
+artifacts/*.joblib
+artifacts/*.csv
+artifacts/*.png
+artifacts/*.html
+data/raw/*.csv
+data/processed/*.csv
