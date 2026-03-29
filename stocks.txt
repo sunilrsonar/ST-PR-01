@@ -40,6 +40,7 @@ ENGINERSIN.NS   # Engineers India
 NBCC.NS         # NBCC
 SJVN.NS         # SJVN
 BDL.NS          # Bharat Dynamics
+HAL.NS          # Hindustan Aeronautics
 HINDCOPPER.NS   # Hindustan Copper
 CHENNPETRO.NS   # Chennai Petroleum
 TATAPOWER.NS    # Tata Power
@@ -56,7 +57,9 @@ HDFCBANK.NS     # HDFC Bank
 BAJFINANCE.NS   # Bajaj Finance
 INDUSINDBK.NS   # IndusInd Bank
 AUBANK.NS       # AU Small Finance Bank
+IGIL.NS         # International Gemmological Institute (IGI)
 ZYDUSLIFE.NS    # Zydus Lifesciences
+NEWGEN.NS       # Newgen Software
 NAUKRI.NS       # Info Edge (Naukri)
 FORTIS.NS       # Fortis Healthcare
 INDIANB.NS      # Indian Bank
@@ -79,7 +82,11 @@ GMDCLTD.NS      # Gujarat Mineral Development Corp
 KEI.NS          # KEI Industries
 ARE&M.NS        # Amara Raja Energy
 EXIDEIND.NS     # Exide Industries
+RAMRAT.NS       # Ram Ratna Wires
+GATEWAY.NS      # Gateway Distriparks
+GUFICBIO.NS     # Gufic Biosciences
 ORCHPHARMA.NS   # Orchid Pharma
+NPST.NS         # Network People Services
 NEULANDLAB.NS   # Neuland Labs
 IRCON.NS        # IRCON International
 RVNL.NS         # Rail Vikas Nigam (RVNL)
