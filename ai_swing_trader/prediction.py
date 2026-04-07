@@ -21,7 +21,11 @@ def confidence_band(confidence: float) -> str:
     return "Low"
 
 
-def predict_latest_signal(ticker: str, period: str) -> dict[str, Any]:
+def predict_latest_signal(
+    ticker: str,
+    period: str,
+    market_frame: pd.DataFrame | None = None,
+) -> dict[str, Any]:
     """Load the trained model and predict the latest BUY/SELL/HOLD signal."""
     artifact_path = model_artifact_path_for_ticker(ticker)
     if not artifact_path.exists():
@@ -31,7 +35,9 @@ def predict_latest_signal(ticker: str, period: str) -> dict[str, Any]:
 
     artifact = load_model_artifact(artifact_path)
     frame = download_price_history(ticker=ticker, period=period)
-    featured = finalize_feature_dataset(add_technical_features(frame))
+    featured = finalize_feature_dataset(
+        add_technical_features(frame, market_frame=market_frame)
+    )
     if featured.empty:
         raise ValueError("No valid feature rows were generated for prediction.")
 

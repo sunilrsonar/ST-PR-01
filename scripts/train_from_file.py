@@ -28,6 +28,7 @@ from ai_swing_trader.data import (
     model_artifact_path_for_ticker,
     processed_data_path_for_ticker,
     raw_data_path_for_ticker,
+    refresh_market_context,
     save_price_history,
 )
 from ai_swing_trader.features import FEATURE_COLUMNS, add_technical_features, finalize_feature_dataset
@@ -64,11 +65,12 @@ def _load_tickers_from_file(file_path: Path) -> list[str]:
 
 def _prepare_training_frame(
     raw_frame: pd.DataFrame,
+    market_frame: pd.DataFrame,
     horizon_days: int,
     buy_threshold: float,
     sell_threshold: float,
 ) -> pd.DataFrame:
-    featured = add_technical_features(raw_frame)
+    featured = add_technical_features(raw_frame, market_frame=market_frame)
     labeled = add_future_return_labels(
         featured,
         horizon_days=horizon_days,
@@ -105,6 +107,8 @@ def main() -> None:
     if not tickers:
         raise ValueError(f"No active tickers found in {ticker_file}.")
 
+    market_frame = refresh_market_context(start=args.start)
+
     successes: list[dict] = []
     failures: list[dict] = []
 
@@ -116,6 +120,7 @@ def main() -> None:
 
             dataset = _prepare_training_frame(
                 raw_frame=raw_frame,
+                market_frame=market_frame,
                 horizon_days=args.horizon_days,
                 buy_threshold=args.buy_threshold,
                 sell_threshold=args.sell_threshold,

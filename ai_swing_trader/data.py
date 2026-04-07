@@ -7,7 +7,12 @@ from pathlib import Path
 import pandas as pd
 import yfinance as yf
 
-from ai_swing_trader.config import ARTIFACTS_DIR, PROCESSED_DATA_DIR, RAW_DATA_DIR
+from ai_swing_trader.config import (
+    ARTIFACTS_DIR,
+    DEFAULT_MARKET_BENCHMARK_TICKER,
+    PROCESSED_DATA_DIR,
+    RAW_DATA_DIR,
+)
 
 
 def ensure_directories() -> None:
@@ -98,3 +103,26 @@ def model_artifact_path_for_ticker(ticker: str) -> Path:
     """Return the default trained model path for a given ticker symbol."""
     safe_ticker = ticker.upper().replace("/", "_")
     return ARTIFACTS_DIR / f"{safe_ticker}_rf_model.joblib"
+
+
+def market_context_path_for_ticker(ticker: str = DEFAULT_MARKET_BENCHMARK_TICKER) -> Path:
+    """Return the default CSV path for a benchmark or market context ticker."""
+    safe_ticker = ticker.upper().replace("/", "_").replace("^", "")
+    return RAW_DATA_DIR / f"_benchmark_{safe_ticker}.csv"
+
+
+def refresh_market_context(
+    ticker: str = DEFAULT_MARKET_BENCHMARK_TICKER,
+    start: str | None = None,
+    end: str | None = None,
+    period: str | None = None,
+) -> pd.DataFrame:
+    """Download and cache benchmark data used as market context features."""
+    frame = download_price_history(
+        ticker=ticker,
+        start=start,
+        end=end,
+        period=period,
+    )
+    save_price_history(frame, market_context_path_for_ticker(ticker))
+    return frame

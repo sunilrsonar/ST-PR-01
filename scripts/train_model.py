@@ -27,6 +27,7 @@ from ai_swing_trader.data import (
     model_artifact_path_for_ticker,
     processed_data_path_for_ticker,
     raw_data_path_for_ticker,
+    refresh_market_context,
 )
 from ai_swing_trader.features import FEATURE_COLUMNS, add_technical_features, finalize_feature_dataset
 from ai_swing_trader.labels import add_future_return_labels
@@ -53,11 +54,12 @@ def parse_args() -> argparse.Namespace:
 
 def _prepare_training_frame(
     raw_frame: pd.DataFrame,
+    market_frame: pd.DataFrame,
     horizon_days: int,
     buy_threshold: float,
     sell_threshold: float,
 ) -> pd.DataFrame:
-    featured = add_technical_features(raw_frame)
+    featured = add_technical_features(raw_frame, market_frame=market_frame)
     labeled = add_future_return_labels(
         featured,
         horizon_days=horizon_days,
@@ -78,8 +80,10 @@ def main() -> None:
         )
 
     raw_frame = load_price_history(input_path)
+    market_frame = refresh_market_context(start=str(raw_frame["Date"].min().date()))
     dataset = _prepare_training_frame(
         raw_frame=raw_frame,
+        market_frame=market_frame,
         horizon_days=args.horizon_days,
         buy_threshold=args.buy_threshold,
         sell_threshold=args.sell_threshold,

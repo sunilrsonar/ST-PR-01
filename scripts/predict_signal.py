@@ -12,7 +12,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from ai_swing_trader.config import DEFAULT_LOOKBACK_PERIOD
-from ai_swing_trader.data import ensure_directories
+from ai_swing_trader.data import ensure_directories, refresh_market_context
 from ai_swing_trader.notifications import (
     build_multi_signal_messages,
     build_signal_message,
@@ -82,6 +82,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     ensure_directories()
+    market_frame = refresh_market_context(period=args.period)
 
     raw_tickers: list[str] = []
     if args.ticker:
@@ -102,7 +103,11 @@ def main() -> None:
     filtered_out: list[tuple[str, float]] = []
     for ticker in tickers:
         try:
-            payload = predict_latest_signal(ticker=ticker, period=args.period)
+            payload = predict_latest_signal(
+                ticker=ticker,
+                period=args.period,
+                market_frame=market_frame,
+            )
             if payload["confidence"] < args.min_confidence:
                 filtered_out.append((ticker, payload["confidence"]))
                 continue
