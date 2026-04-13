@@ -14,6 +14,8 @@ Usage:
   ./run_trading_bot.sh train
   ./run_trading_bot.sh fetch
   ./run_trading_bot.sh refresh
+  ./run_trading_bot.sh evaluate [--log-path PATH --limit N]
+  ./run_trading_bot.sh ui [streamlit args]
 
 Commands:
   setup   Create the virtual environment, install dependencies, and fetch/train all active stocks from stocks.txt.
@@ -21,6 +23,8 @@ Commands:
   train   Re-run bulk fetch/training for active stocks from stocks.txt.
   fetch   Alias of train for convenience.
   refresh Remove stale data/artifacts for stocks no longer in stocks.txt, then fetch/train the active list.
+  evaluate Evaluate matured predictions against actual outcomes.
+  ui      Launch the local Streamlit interface for predictions.
 
 Notes:
   - Edit stocks.txt to control which stocks are active.
@@ -92,6 +96,16 @@ run_send() {
   "$PYTHON_BIN" "$ROOT_DIR/scripts/predict_signal.py" --send-telegram "$@"
 }
 
+run_evaluate() {
+  echo "Evaluating prediction log"
+  "$PYTHON_BIN" "$ROOT_DIR/scripts/evaluate_predictions.py" "$@"
+}
+
+run_ui() {
+  echo "Launching local UI"
+  "$VENV_DIR/bin/streamlit" run "$ROOT_DIR/streamlit_app.py" "$@"
+}
+
 main() {
   if [[ $# -lt 1 ]]; then
     print_help
@@ -123,9 +137,19 @@ main() {
       cleanup_stale_stock_files
       run_bulk_training
       ;;
+    evaluate)
+      ensure_venv
+      install_requirements
+      run_evaluate "$@"
+      ;;
     send)
       ensure_venv
       run_send "$@"
+      ;;
+    ui)
+      ensure_venv
+      install_requirements
+      run_ui "$@"
       ;;
     help|-h|--help)
       print_help

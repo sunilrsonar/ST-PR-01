@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import time
 
 import pandas as pd
 import yfinance as yf
@@ -54,8 +55,10 @@ def download_price_history(
     end: str | None = None,
     period: str | None = None,
     interval: str = "1d",
+    retries: int = 3,
+    retry_delay_seconds: float = 1.0,
 ) -> pd.DataFrame:
-    """Download daily OHLCV data using yfinance."""
+    """Download daily OHLCV data using yfinance with cached fallback."""
     download_kwargs = {
         "tickers": ticker,
         "interval": interval,
@@ -71,8 +74,29 @@ def download_price_history(
         if end:
             download_kwargs["end"] = end
 
-    frame = yf.download(**download_kwargs)
-    return _standardize_ohlcv_columns(frame)
+    last_error: Exception | None = None
+    for attempt in range(1, retries + 1):
+        try:
+            frame = yf.download(**download_kwargs)
+            return _standardize_ohlcv_columns(frame)
+        except Exception as exc:
+            last_error = exc
+            if attempt < retries:
+                time.sleep(retry_delay_seconds)
+
+    fallback_paths = [
+        raw_data_path_for_ticker(ticker),
+        market_context_path_for_ticker(ticker),
+    ]
+    for fallback_path in fallback_paths:
+        if fallback_path.exists():
+            return load_price_history(fallback_path)
+
+    if last_error is not None:
+        raise RuntimeError(
+            f"Failed to download {ticker} after {retries} attempts: {last_error}"
+        ) from last_error
+    raise RuntimeError(f"Failed to download {ticker}: unknown error")
 
 
 def save_price_history(frame: pd.DataFrame, output_path: Path) -> None:

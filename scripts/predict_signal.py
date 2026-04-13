@@ -20,6 +20,7 @@ from ai_swing_trader.notifications import (
     send_telegram_messages,
 )
 from ai_swing_trader.prediction import predict_latest_signal
+from ai_swing_trader.tracking import evaluate_prediction_log, upsert_prediction_log
 
 
 def _load_tickers_from_file(file_path: Path) -> list[str]:
@@ -117,6 +118,9 @@ def main() -> None:
 
     if not prediction_payloads:
         raise RuntimeError("No predictions could be generated after filtering the provided tickers.")
+
+    upsert_prediction_log(prediction_payloads)
+    evaluate_prediction_log()
 
     for prediction_payload in prediction_payloads:
         print(f"Ticker: {prediction_payload['ticker']}")

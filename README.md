@@ -53,12 +53,14 @@ Use the shell helper for the simplest flow:
 ```bash
 ./run_trading_bot.sh setup
 ./run_trading_bot.sh send --bot-token "YOUR_BOT_TOKEN" --chat-id "YOUR_CHAT_ID" --min-confidence 0.45
+./run_trading_bot.sh ui
 ```
 
 What it does:
 
 - `setup`: creates `.venv`, installs all requirements, fetches data, and trains all active stocks from `stocks.txt`
 - `send`: loads the trained models, filters weaker predictions if needed, and sends the Telegram alert
+- `ui`: launches a local browser UI that shows live predictions, confidence, and predicted future prices
 
 ## Step 1: Download Historical Data
 
@@ -137,6 +139,21 @@ This script will:
 - Send the same signals to your Telegram chat in one message
 
 By default, it reads tickers from `stocks.txt`. You can edit that file and keep one symbol per line.
+
+## Step 4B: Open the Local UI
+
+Example:
+
+```bash
+./run_trading_bot.sh ui
+```
+
+This launches a Streamlit app in your browser where you can:
+
+- view all active stocks from `stocks.txt`
+- filter by signal and minimum confidence
+- compare current close versus predicted future price
+- inspect ticker-level failures without opening terminal logs
 
 ## Bulk Training
 
